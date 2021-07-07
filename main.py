@@ -12,9 +12,10 @@ class Player:
     def __init__(self, playerName, shipClass, boardClass, playerScore = 0) -> None:
         self.playerName = playerName
         self.playerScore = playerScore
+        # Currently looking for ways to pass a class as a parameter if that is possible. Furthermore, want to create a global dict
         self.board = boardClass
         self.ships = shipClass
-        self.ship_location = {}
+        self.ship_location = dict()
     
     def add_ship(self, ships) -> None:
         
