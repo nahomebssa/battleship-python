@@ -18,4 +18,6 @@ class TestShip(unittest.TestCase):
         self.assertEqual(len(cells), len(cells_expected))
         for cell in cells_expected:
             self.assertIn(cell, cells)
-        
+
+if __name__ == '__main__':
+    unittest.main()
