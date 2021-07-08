@@ -62,7 +62,7 @@ class Player:
 
         '''
         This checks where the spot targeted by opponent had this player's ship,
-        if so, we decrement it's length (this is similar to checking if ship has sunk using Ship.has_sunk)
+        if so, we decrement it's length (this is similar to checking if ship has sunk using Ship.has_sunk method)
         '''
         if len(self.ships_location) != 0:
             for ship in self.ships_location:
