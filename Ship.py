@@ -1,82 +1,52 @@
-class ShipOrientation:
-    
-    __orientation: str
-    
-    def __init__(self, orientation):
-        self.__orientation = orientation
-    
-    def get_orientation(self):
-        return self.__orientation
-    
-    def __str__(self):
-        return self.__orientation
-    
-    def __repr__(self):
-        return f"ShipOrientation{{{self.__orientation}}}"
-
-# Static instances of possible orientations
-ShipOrientation.VERTICAL = ShipOrientation("vertical")
-ShipOrientation.HORIZONTAL = ShipOrientation("horizontal")
-
 class Ship:
 
-    """
-    Constructs a ship.
-    @param name The name of the ship
-    @param size The size of the ship in the format (rows, columns)
-    @param start_cell The cell from which to start building the ship
-    @param orientation The orientation of the ship, either vertical or horizontal
-    @return The constructed ship
-    """
-    def __init__(self, name: str, size: tuple[int, int], start_cell: tuple[int, int], orientation = ShipOrientation.HORIZONTAL): pass
+    __name: str
+    __size: tuple[int, int]
+    __cells: set[tuple[int, int]]
+    __cells_attacked: set[tuple[int, int]]
+
+    __SHIP_TYPES = {
+        "Carrier": 5,
+        "Battleship": 4,
+        "Cruiser": 3,
+        "Submarine": 3,
+        "Destroyer": 2,
+    }
+
+    def __init__(self, name: str):
+        self.__name = name
+        self.__size = Ship.__SHIP_TYPES[self.__name]
+        self.__cells = set()
+        self.__cells_attacked = set()
 
     
-    # Getters and setters
+    def get_name(self) -> str:
+        return self.__name
 
-    """
-    @returns The name of the ship
-    """
-    def get_name(self) -> str: pass
+    def get_size(self) -> tuple[int, int]:
+        return self.__size
 
-    """
-    @returns The size of the ship in the format (rows, cols)
-    """
-    def get_size(self) -> tuple[int, int]: pass
+    def add_cell(self, cell: tuple[int, int]):
+        self.__cells.add(cell)
+
     
-    """
-    @returns The cell from which the ship starts, in the format (x, y)
-    """
-    def get_start_cell(self) -> tuple[int, int]: pass
+    def has_sunk(self) -> bool:
+        """
+        Determines whether this ship has been sunk
+        """
+        return len(self.__cells) == 0
+  
+    def receive_attack(self, cell: tuple[int, int]) -> bool:
+        """
+        Removes the incoming cell from this ship's set of cells
+        @param cell The cell
+        @returns True if the cell was attacked, false otherwise
+        """
+        if cell in self.__cells:
+            self.__cells.remove(cell)
+            self.__cells_attacked.add(cell)
+            return True
+        return False
+        
 
-    """
-    @returns An instance of the ShipOrientation class, either HORIZONTAL or VERTICAL
-    """
-    def get_ship_orientation(self) -> ShipOrientation: pass
 
-    """
-    @returns A set of all cells which the ship occupies
-    """
-    def get_cell_locations(self) -> set[tuple[int, int]]: pass
-
-
-
-    # Ship methods
-
-    """
-    @param cell The cell to check against the ship
-    @returns True if the cell lands on the ship, and false if it doesn't
-    """
-    def cell_falls_on_ship(self, cell: tuple[int, int]) -> bool: pass
-    
-    """
-    Removes the cell from this ship's set of cells
-    @param cell The cell
-    @returns True if the cell was attacked, false otherwise
-    """
-    def attack(self, cell: tuple[int, int]): bool
-
-    """
-    Detects if the ship was hit
-    @returns True if the ship was hit, false otherwise
-    """
-    def hitDetection(self): bool
