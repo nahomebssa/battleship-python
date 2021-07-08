@@ -2,16 +2,15 @@ import os
 import sys
 from time import sleep
 from player import Player
-from ship import Ship
-from board import Board
+from Ship import Ship
+# from board import Board
 
-class Game():
+class Game:
 
     def __init__(self, player1, player2):
         self.player1 = player1
         self.player2 = player2
         self.current_player = None
-        self.next_player = None
         self.round = 0
 
     def get_current_player(self):
@@ -19,18 +18,19 @@ class Game():
         return players[self.round % len(players)]
 
     def get_next_player(self):
-        players = [self.__player_1, self.__player_2]
+        players = [self.player1, self.player1]
         return players[(self.round + 1) % len(players)]
 
-    def clear_screen():
+    def clear_screen(self):
 
         if os.name == 'posix':
             _ = os.system('clear')
         else:
             _ = os.system('cls')
 
-    def play():
-        """
+    def play(self):
+        pass
+        '''
         while True:
             #Clear Screen
             clear_screen()
@@ -40,4 +40,4 @@ class Game():
             current_player.get_board()
 
             print(f"{current_player}'s turn!")
-        """
+        '''
