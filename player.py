@@ -12,7 +12,7 @@ class Player:
     def __init__(self, playerName) -> None:
 
         self.playerName = playerName
-        self.ships_location = dict()
+        self.ships_location = []
     
     def add_ship(self) -> None:
         '''
@@ -34,13 +34,13 @@ class Player:
                 if (start_row >= 0) and ((start_row + self.my_ship.get_size()) <= 9):
                     for pos in range(self.my_ship.get_size()):
                         self.my_ship.add_cell(tuple(start_row + pos, start_col))
-                    self.ships_location[self.my_ship] = self.my_ship.get_size()
+                    self.ships_location.append(self.my_ship)
                 
             elif orientation == 'h':
                 if (start_col >= 0) and ((start_col + self.my_ship.get_size()) <= 9):
                     for pos in range(self.my_ship.get_size()):
                         self.my_ship.add_cell(tuple(start_row, start_col + pos))
-                    self.ships_location[self.my_ship] = self.my_ship.get_size()
+                    self.ships_location.append(self.my_ship)
             else:
                 print("Please enter correct orientation")
 
@@ -67,7 +67,8 @@ class Player:
         if len(self.ships_location) != 0:
             for ship in self.ships_location:
                 if ship.receive_attack(target) == True:
-                    self.ships_location[ship] -= 1
+                    if ship.has_sunk() == True:
+                        self.ships_location.pop(ship)
 
             
     
