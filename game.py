@@ -2,8 +2,8 @@ import os
 import sys
 from time import sleep
 from player import Player
-from ship import Ship
-from board import Board
+from Ship import Ship
+from Board import Board
 
 class Game():
 

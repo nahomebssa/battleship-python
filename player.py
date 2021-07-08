@@ -1,54 +1,80 @@
+from Ship import Ship
 class Player: 
     '''
     This class defines a player who will play the game against another player. This class is able to add ships to the board.
     To ensure that ship position is hidden, we only store the ship coordinates and refer to them.
     Furthermore, we can remove a specific ship if the player wants to.
     This class will also enable us to know if a certain player has won the game.
+
     '''
-    def __init__(self, playerName, shipClass, boardClass, playerScore = 0) -> None:
+
+
+    def __init__(self, playerName) -> None:
+
         self.playerName = playerName
-        self.playerScore = playerScore
-        # Currently looking for ways to pass a class as a parameter if that is possible. Furthermore, want to create a global dict
-        self.board = boardClass
-        self.ships = shipClass
-        self.ship_location = dict()
+        self.ships_location = dict()
     
-    def add_ship(self, ships) -> None:
-        
-        for _ in range(0, 6):
-            orientation = input("Please enter v or h for vertical or horizontal orientation respectively: ")
+    def add_ship(self) -> None:
+        '''
+        Since there are 5 ships to add, this method iterates through the five options 
+        changing their cell based on where the user wanted the starting coordinate in relation to 
+        the orientation.
+        '''
+        for _ in range(1, 6):
 
-            while (orientation != 'v') or (orientation != 'h'):
-                print("Invalid orientation")
-                orientation = input("Please enter v or h for vertical or horizontal orientation respectively: ")
+            self.ship_name = input("Please enter correct ship name: ")
+            self.my_ship = Ship(self.ship_name)
+
+            start_row = input("Please enter starting row: ")
+            start_col = input("Please enter starting column: ")
+
+            orientation = input("Please enter 'v' for verically orientation or 'h' for horizontal orientation: ")
+
             if orientation == 'v':
-                print("Please note that ships will be built top -> down")
-                placement = tuple(input("Please specify starting coordinate i.e (0, 0): "))
-                for _ in range(ships.length):
-                    if ships.name not in ship_location:
-                        ship_location[ships.name] = [placement]
-                    else:
-                        ship_location[ships.name].append((placement[0], placement[1] + 1))
-
+                if (start_row >= 0) and ((start_row + self.my_ship.get_size()) <= 9):
+                    for pos in range(self.my_ship.get_size()):
+                        self.my_ship.add_cell(tuple(start_row + pos, start_col))
+                    self.ships_location[self.my_ship] = self.my_ship.get_size()
+                
             elif orientation == 'h':
-                print("Please note that ships will be built left -> right")
-                placement = tuple(input("Please specify which row to place ship, i.e 0-9: "))
-                for _ in range(ships.length):
-                    if ships.name not in ship_location:
-                        ship_location[ships.name] = [placement]
-                    else:
-                        ship_location[ships.name].append((placement[0] + 1, placement[1]))
+                if (start_col >= 0) and ((start_col + self.my_ship.get_size()) <= 9):
+                    for pos in range(self.my_ship.get_size()):
+                        self.my_ship.add_cell(tuple(start_row, start_col + pos))
+                    self.ships_location[self.my_ship] = self.my_ship.get_size()
+            else:
+                print("Please enter correct orientation")
 
-    def remove_ship(self, ship_name) -> None:
 
-        if ship_name in ship_location:
-            ship_location.pop(ship_name)
-        else:
-            print("No such ship")
+
+
+
+    def make_turn(self) -> tuple[int, int]:
+        '''
+        This method is used by this player to indicate where they want to place their attack.
+        '''
+
+        x_target = input("Please enter x coordinate to attack: ")
+        y_target = input("Please enter y coordinate to attack: ")
+
+        return tuple(x_target, y_target)
     
-    def any_ships_remaining(self) -> bool:
+    def attacked(self, target: tuple[int, int]) -> None:
 
-        if len(ship_location) != 0:
-            return True
-        else:
-            return False
+        '''
+        This checks where the spot targeted by opponent had this player's ship,
+        if so, we decrement it's length (this is similar to checking if ship has sunk using Ship.has_sunk)
+        '''
+        if len(self.ships_location) != 0:
+            for ship in self.ships_location:
+                if ship.receive_attack(target) == True:
+                    self.ships_location[ship] -= 1
+
+            
+    
+    
+    def any_remaining_ships(self) -> None:
+        '''
+        Checkes if all this player's ships have been sunk
+        '''
+        return len(self.ships_location) == 0
+    
