@@ -17,6 +17,11 @@ class Board:
     print("BATTLESHIP")
     print("\033[1m0 1 2 3 4 5 6 7 8 9 \033[1m")
 
+  def clear_board(board):
+    del board[:]
+    build_game_board(board)
+    show_board(board)
+
   load_game(board)
   build_game_board(board)
   show_board(board)
