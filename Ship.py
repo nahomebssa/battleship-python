@@ -56,9 +56,6 @@ class Ship:
             return True
         return False
 
-    def __str__(self) -> str:
-        return "#"
-
     def __repr__(self) -> str:
         return f"Ship{{{self.__name}, {self.__size}}}"
 
