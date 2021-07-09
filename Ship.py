@@ -35,6 +35,10 @@ class Ship:
     def get_cells_attacked(self) -> set[tuple[int, int]]:
         return self.__cells_attacked
 
+    @staticmethod
+    def get_ship_names() -> list[str]:
+        return Ship.__SHIP_TYPES.keys()
+
     def add_cell(self, cell: tuple[int, int]):
         self.__cells.add(cell)
 
