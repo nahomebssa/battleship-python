@@ -34,52 +34,74 @@ class Player:
         # The for loop below uses the ships in the available_ships to place them without user being asked for name.
         for ship in available_ships:
 
-            self.ship_name = ship
-            self.my_ship = Ship(ship)
+            my_ship = Ship(ship)
+            
 
-            print(f"Place Ship: {ship}, Size: {self.my_ship.get_size()}")
+            print(f"Place Ship: {ship}, Size: {my_ship.get_size()}")
 
             # while loop to handle user input validation for row and column. Might be repetitive?
             while True:
+
                 try:
+
                     start_row = int(input("Please enter starting row (0-9): "))
-                    if start_row < 0 or start_row > 9:
-                        print("Oops, your number was not in range! Try again!")
-                        continue
                     start_col = int(input("Please enter starting column (0-9): "))
-                    if start_col < 0 or start_col > 9:
-                        print("Oops, your number was not in range! Try again!")
+                    orientation = input("Please enter 'v' for verically orientation or 'h' for horizontal orientation: ")
+                    
+                    # Checks if all user inputs are valid
+                    if (start_row < 0) or (start_row > 9) or (start_col < 0) or (start_col > 9) or (orientation != 'v') or (orientation != "h"):
+                        print("Invalid input. Please ensure starting coordinates or orientation are correct. Try again ")
                         continue
+
+
                 except ValueError:
                     print("Oops, please enter a valid integer! Try again!")
                     continue
-                break
-
-            # while loop to handle user input validation for orientation selection.
-            while True:
-                orientation = input("Please enter 'v' for verically orientation or 'h' for horizontal orientation: ")
-                if orientation != 'v' and orientation != "h":
-                    print("Choose a correct orientation!")
-                    continue
-
-                if orientation == 'v':
-                    if (start_row >= 0) and ((start_row + self.my_ship.get_size()) <= 9):
-                        for pos in range(self.my_ship.get_size()):
-                            self.my_ship.add_cell(tuple((start_row + pos, start_col)))
-                            # Added the line below to manipulate and show the ship on the board!
-                            self.player_board.board[start_row + pos][start_col] = "O"
-                        self.ships_location.append(self.my_ship)
-
+                    
                 else:
-                    if (start_col >= 0) and ((start_col + self.my_ship.get_size()) <= 9):
-                        for pos in range(self.my_ship.get_size()):
-                            self.my_ship.add_cell(tuple((start_row, start_col + pos)))
-                            # Added the line below to manipulate and show the ship on the board!
-                            self.player_board.board[start_row][start_col + pos] = "O"
-                        self.ships_location.append(self.my_ship)
+                    if orientation == 'v':
+                        if ((start_row + my_ship.get_size()) <= 9):
+
+                            # Places ships assuming either ship size is (x, 1) or (1, x)
+                            for pos in range(my_ship.get_size()):
+                                if len(self.ships_location) != 0:
+                                    
+                                    #Iterates through ship cells checking if desired coordinate has already being placed
+                                    for ship in self.ships_location:
+                                        cell_to_add = tuple((start_row + pos, start_col))
+                                        if cell_to_add in ship.get_cells():
+                                            print("Please choose another starting coordinate: ")
+                                            continue
+
+                                    my_ship.add_cell(cell_to_add)
+                                # Added the line below to manipulate and show the ship on the board!
+                                self.player_board.board[start_row + pos][start_col] = "O"
+                            self.ships_location.append(my_ship)
+
+                    else:
+                        if ((start_row + my_ship.get_size()) <= 9):
+
+                            # Places ships assuming either ship size is (x, 1) or (1, x)
+                            for pos in range(my_ship.get_size()):
+                                if len(self.ships_location) != 0:
+
+                                    #Iterates through ship cells checking if desired coordinate has already being placed
+                                    for ship in self.ships_location:
+                                        cell_to_add = tuple((start_row, start_col + pos))
+                                        if cell_to_add in ship.get_cells():
+                                            print("Please choose another starting coordinate: ")
+                                            continue
+                                        
+                                    my_ship.add_cell(cell_to_add)
+                                # Added the line below to manipulate and show the ship on the board!
+                                self.player_board.board[start_row + pos][start_col] = "O"
+                            self.ships_location.append(my_ship)
+                self.player_board.show_board()
                 break
 
-            self.player_board.show_board()
+     
+
+                
 
 
 
@@ -95,7 +117,7 @@ class Player:
         # Had to add extra parentheses because I got an error without them. Returns a tuple now.
         return tuple((x_target, y_target))
     
-    def attacked(self, target) -> None:
+    def attacked(self, target) -> bool:
 
         '''
         This checks where the spot targeted by opponent had this player's ship,
