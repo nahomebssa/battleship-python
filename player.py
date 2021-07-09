@@ -1,12 +1,14 @@
 from Ship import Ship
 from Board import Board
 
+
 class Player: 
     '''
     This class defines a player who will play the game against another player. This class is able to add ships to the board.
     To ensure that ship position is hidden, we only store the ship coordinates and refer to them.
     Furthermore, we can remove a specific ship if the player wants to.
     This class will also enable us to know if a certain player has won the game.
+
     '''
 
     # Added the self.player_board.build_game_board() to build the board
@@ -16,6 +18,7 @@ class Player:
         self.ships_location = []
         self.player_board = Board()
         self.player_board.build_game_board()
+
     
     def add_ship(self) -> None:
         '''
@@ -80,6 +83,12 @@ class Player:
             self.player_board.show_board()
 
     def make_turn(self):
+
+
+
+
+
+    def make_turn(self) -> tuple[int, int]:
         '''
         This method is used by this player to indicate where they want to place their attack.
         '''
@@ -121,3 +130,4 @@ class Player:
 
     def print_board(self):
         self.player_board.show_board()
+
