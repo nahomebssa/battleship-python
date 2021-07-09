@@ -49,7 +49,7 @@ class Player:
                     orientation = input("Please enter 'v' for verically orientation or 'h' for horizontal orientation: ")
                     
                     # Checks if all user inputs are valid
-                    if (start_row < 0) or (start_row > 9) or (start_col < 0) or (start_col > 9) or (orientation != 'v') or (orientation != "h"):
+                    if (start_row < 0) or (start_row > 9) or (start_col < 0) or (start_col > 9) or ((orientation != 'v') and (orientation != "h")):
                         print("Invalid input. Please ensure starting coordinates or orientation are correct. Try again ")
                         continue
 
