@@ -1,4 +1,6 @@
 from Ship import Ship
+from Board import Board
+
 class Player: 
     '''
     This class defines a player who will play the game against another player. This class is able to add ships to the board.
@@ -13,8 +15,10 @@ class Player:
 
         self.playerName = playerName
         self.ships_location = []
+        
     
     def add_ship(self) -> None:
+
         '''
         Since there are 5 ships to add, this method iterates through the five options 
         changing their cell based on where the user wanted the starting coordinate in relation to 
@@ -25,21 +29,22 @@ class Player:
             self.ship_name = input("Please enter correct ship name: ")
             self.my_ship = Ship(self.ship_name)
 
-            start_row = input("Please enter starting row: ")
-            start_col = input("Please enter starting column: ")
+            start_row = int(input("Please enter starting row: "))
+            start_col = int(input("Please enter starting column: "))
 
             orientation = input("Please enter 'v' for verically orientation or 'h' for horizontal orientation: ")
+
 
             if orientation == 'v':
                 if (start_row >= 0) and ((start_row + self.my_ship.get_size()) <= 9):
                     for pos in range(self.my_ship.get_size()):
-                        self.my_ship.add_cell(tuple(start_row + pos, start_col))
+                        self.my_ship.add_cell(tuple((start_row + pos, start_col)))
                     self.ships_location.append(self.my_ship)
                 
             elif orientation == 'h':
                 if (start_col >= 0) and ((start_col + self.my_ship.get_size()) <= 9):
                     for pos in range(self.my_ship.get_size()):
-                        self.my_ship.add_cell(tuple(start_row, start_col + pos))
+                        self.my_ship.add_cell(tuple((start_row, start_col + pos)))
                     self.ships_location.append(self.my_ship)
             else:
                 print("Please enter correct orientation")
@@ -78,4 +83,7 @@ class Player:
         Checkes if all this player's ships have been sunk
         '''
         return len(self.ships_location) == 0
+    
+    
+    
     
