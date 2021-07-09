@@ -9,7 +9,7 @@ class Ship:
     __cells: set[tuple[int, int]]
     __cells_attacked: set[tuple[int, int]]
 
-    __SHIP_TYPES = {
+    __SHIP_TYPES: dict[str, int] = {
         "carrier": 5,
         "battleship": 4,
         "cruiser": 3,
@@ -68,3 +68,7 @@ class Ship:
 
     def get_cells_attacked__for_testing(self) -> set[tuple[int, int]]:
         return self.__cells_attacked
+
+    @staticmethod
+    def get__SHIP_TYPES__for_testing() -> dict[str, int]:
+        return Ship.__SHIP_TYPES
