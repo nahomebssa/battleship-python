@@ -2,26 +2,23 @@ from Ship import Ship
 
 class Board:
 # 10 x 10 board
-  board = []
 
-  def build_game_board(board):
-    for item in range(10):
-        board.append(["O"] * 10),
+    def __init__(self):
+      self.board = []
 
-  def show_board(board):
-      for row in board:
+    def build_game_board(self):
+        for item in range(10):
+            self.board.append(["-"] * 10),
 
-        print(" ".join(row))
+    def show_board(self):
+        for row in self.board:
+            print(" ".join(row))
 
-  def load_game(board):
-    print("BATTLESHIP")
-    print("\033[1m0 1 2 3 4 5 6 7 8 9 \033[1m")
+    def load_game(self):
+        print("BATTLESHIP")
+        print("\033[1m0 1 2 3 4 5 6 7 8 9 \033[1m")
 
-  def clear_board(board):
-    del board[:]
-    build_game_board(board)
-    show_board(board)
+# load_game(board)
+# build_game_board()
+# show_board(board)
 
-  load_game(board)
-  build_game_board(board)
-  show_board(board)
