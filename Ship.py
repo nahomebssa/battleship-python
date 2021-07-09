@@ -6,10 +6,10 @@ class Ship:
 
     __name: str
     __size: int
-    __cells: set[tuple[int, int]]
-    __cells_attacked: set[tuple[int, int]]
+    __cells: set
+    __cells_attacked: set
 
-    __SHIP_TYPES: dict[str, int] = {
+    __SHIP_TYPES = {
         "carrier": 5,
         "battleship": 4,
         "cruiser": 3,
@@ -29,17 +29,17 @@ class Ship:
     def get_size(self) -> int:
         return self.__size
 
-    def get_cells(self) -> set[tuple[int, int]]:
+    def get_cells(self) -> set:
         return self.__cells
 
-    def get_cells_attacked(self) -> set[tuple[int, int]]:
+    def get_cells_attacked(self) -> set:
         return self.__cells_attacked
 
     @staticmethod
-    def get_ship_names() -> list[str]:
+    def get_ship_names() -> list:
         return Ship.__SHIP_TYPES.keys()
 
-    def add_cell(self, cell: tuple[int, int]):
+    def add_cell(self, cell: tuple):
         self.__cells.add(cell)
 
     def has_sunk(self) -> bool:
@@ -48,7 +48,7 @@ class Ship:
         """
         return len(self.__cells) == 0
 
-    def receive_attack(self, cell: tuple[int, int]) -> bool:
+    def receive_attack(self, cell: tuple) -> bool:
         """
         Removes the incoming cell from this ship's set of cells
         @param cell The cell which was requested to receive the attack
@@ -63,12 +63,12 @@ class Ship:
     def __repr__(self) -> str:
         return f"Ship{{{self.__name}, {self.__size}}}"
 
-    def get_cells__for_testing(self) -> set[tuple[int, int]]:
+    def get_cells__for_testing(self) -> set:
         return self.__cells
 
-    def get_cells_attacked__for_testing(self) -> set[tuple[int, int]]:
+    def get_cells_attacked__for_testing(self) -> set:
         return self.__cells_attacked
 
     @staticmethod
-    def get__SHIP_TYPES__for_testing() -> dict[str, int]:
+    def get__SHIP_TYPES__for_testing() -> dict:
         return Ship.__SHIP_TYPES
