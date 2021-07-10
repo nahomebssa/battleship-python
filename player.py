@@ -36,13 +36,11 @@ class Player:
         for ship in available_ships:
 
             my_ship = Ship(ship)
-            
 
             print(f"Place Ship: {ship}, Size: {my_ship.get_size()}")
 
-            # while loop to handle user input validation for row and column. Might be repetitive?
             while True:
-
+                flag = False
                 try:
 
                     start_row = int(input("Please enter starting row (0-9): "))
@@ -54,66 +52,76 @@ class Player:
                         print("Invalid input. Please ensure starting coordinates or orientation are correct. Try again ")
                         continue
 
-
                 except ValueError:
                     print("Oops, please enter a valid integer! Try again!")
                     continue
-                    
-                else:
-                    if orientation == 'v':
-                        if ((start_row + my_ship.get_size()) <= 9):
 
-                            # Places ships assuming either ship size is (x, 1) or (1, x)
-                            for pos in range(my_ship.get_size()):
+                if orientation == 'v':
+                    if ((start_row + (my_ship.get_size() - 1)) <= 9):
 
-                                cell_to_add = tuple((start_row, start_col + pos))
-                                if cell_to_add in placed_cells:
-                                    # handle overlap
-                                    pass
-                                else:
-                                    placed_cells.add(cell_to_add)
+                        # Places ships assuming either ship size is (x, 1) or (1, x)
+                        for pos in range(my_ship.get_size()):
 
-                                if len(self.ships_location) != 0:
-                                    
-                                    #Iterates through ship cells checking if desired coordinate has already being placed
-                                    for ship in self.ships_location:
-                                        cell_to_add = tuple((start_row + pos, start_col))
-                                        if cell_to_add in ship.get_cells():
-                                            print("Please choose another starting coordinate: ")
-                                            continue
+                            if self.player_board.board[start_row + pos][start_col] == "O":
+                                print("There's a ship here! Please choose another starting coordinate.")
+                                flag = True
+                                placed_cells = set()
+                                break
 
-                                    my_ship.add_cell(cell_to_add)
-                                my_ship.add_cell(cell_to_add)
-                                # Added the line below to manipulate and show the ship on the board!
-                                self.player_board.board[start_row + pos][start_col] = "O"
-                            self.ships_location.append(my_ship)
+                            cell_to_add = tuple((start_row + pos, start_col))
 
+                            placed_cells.add(cell_to_add)
+
+                        if flag:
+                            continue
+
+                        for cell in placed_cells:
+                            my_ship.add_cell(cell)
+
+                        for pos in range(my_ship.get_size()):
+                            self.player_board.board[start_row + pos][start_col] = "O"
+
+                        self.ships_location.append(my_ship)
+                        self.player_board.show_board()
                     else:
-                        if ((start_row + my_ship.get_size()) <= 9):
+                        print("Oops! You're building off the board! Try again.")
+                        continue
 
-                            # Places ships assuming either ship size is (x, 1) or (1, x)
-                            for pos in range(my_ship.get_size()):
+                else:
+                    if ((start_col + (my_ship.get_size() - 1)) <= 9):
 
-                                cell_to_add = tuple((start_row, start_col + pos))
+                        # Places ships assuming either ship size is (x, 1) or (1, x)
+                        for pos in range(my_ship.get_size()):
 
-                                if len(self.ships_location) != 0:
-                                    #Iterates through ship cells checking if desired coordinate has already being placed
-                                    for ship in self.ships_location:
-                                        if cell_to_add in ship.get_cells():
-                                            print("Please choose another starting coordinate: ")
-                                            continue
-                                        
-                                    my_ship.add_cell(cell_to_add)
-                                my_ship.add_cell(cell_to_add)
-                                # Added the line below to manipulate and show the ship on the board!
-                                self.player_board.board[start_row][start_col + pos] = "O"
-                            self.ships_location.append(my_ship)
-                self.player_board.show_board()
+                            if self.player_board.board[start_row][start_col + pos] == "O":
+                                print("There's a ship here! Please choose another starting coordinate.")
+                                flag = True
+                                break
+
+                            cell_to_add = tuple((start_row, start_col + pos))
+
+                            placed_cells.add(cell_to_add)
+
+                        if flag:
+                            continue
+
+                        for cell in placed_cells:
+                            my_ship.add_cell(cell)
+
+                        for pos in range(my_ship.get_size()):
+                            self.player_board.board[start_row][start_col + pos] = "O"
+
+                        self.ships_location.append(my_ship)
+                        self.player_board.show_board()
+                    else:
+                        print("Oops! You're building off the board! Try again.")
+                        continue
+
                 break
 
-     
 
-                
+
+
 
 
 

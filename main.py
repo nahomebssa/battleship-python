@@ -22,6 +22,9 @@ def main():
     print(f"{player2.playerName}, place your ships!")
     player2.add_ship()
 
+    player1.player_board.clear_board()
+    player2.player_board.clear_board()
+
     game.clear_screen()
 
     winner_of_game = game.play()
