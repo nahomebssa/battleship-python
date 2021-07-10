@@ -29,7 +29,7 @@ def main():
 
     winner_of_game = game.play()
 
-    print(f"The winner of this game is: {winner_of_game.player_name}!")
+    print(f"The winner of this game is: {winner_of_game.playerName}!")
 
 
 if __name__ == '__main__':
