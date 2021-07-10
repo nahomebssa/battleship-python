@@ -1,64 +1,32 @@
 from game import Game
-
-from board import Board
-
 from player import Player
-
-​
-
-​
 
 def main():
 
-​
+    print("Welcome to Battleship!")
+    print()
 
-print("Welcome to Battleship!")
+    player1 = Player(input("Player 1, please enter your name: "))
+    player2 = Player(input("Player 2, please enter your name: "))
 
-print()
+    game = Game(player1, player2)
 
-​
+    print("Time to place your ships!")
+    print()
 
-player1 = Player(input("Player 1, please enter your name: "))
+    print(f"{player1.playerName}, place your ships!")
+    player1.add_ship()
 
-player2 = Player(input("Player 2, please enter your name: "))
+    game.clear_screen()
 
-​
+    print(f"{player2.playerName}, place your ships!")
+    player2.add_ship()
 
-game = Game(player1, player2)
+    winner_of_game = game.play()
 
-​
+    print(f"The winner of this game is: {winner_of_game.player_name}!")
 
-print("Time to place your ships!")
-
-​
-
-print(f"{player1.playerName}, place your ships!")
-
-player1.add_ship()
-
-​
-
-game.clear_screen()
-
-​
-
-print(f"{player2.playerName}, place your ships!")
-
-player2.add_ship()
-
-​
-
-winner_of_game = game.play()
-
-​
-
-print(f"The winner of this game is: {winner_of_game.player_name}!")
-
-​
-
-​
 
 if __name__ == '__main__':
-
-main()
+    main()
 
