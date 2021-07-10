@@ -60,6 +60,11 @@ The winner of the game is the person who can take out each player's ships first.
 - Have appropriate libraries installed (unittest, os)
 - Open file from terminal and run (python main.py) to start interacting with game.
 
+📝 `NOTE - The Gif below doesn't show entire game as that's long for a gif (shows intial game stages) :`
+
+<img src="https://github.com/nahomebssa/battleship-python/blob/main/buildingShips.gif" width=600><br>
+
+
 ### Challenges faced:
 
 - Not all ships are sunk if more than one ships are placed on the board.
