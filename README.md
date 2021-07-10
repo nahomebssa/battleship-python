@@ -28,39 +28,39 @@ The winner of the game is the person who can take out each player's ships first.
 - [x] Each player can place their ships either horizontally, or vertically on the board.
 - [x] Each player is given their own turn to play their own ships
 
-### Toggle to the next player
+### Toggle to the next player:
 
 - [x] Each player can take turns attacking/guessing where the other players ship are, then alternates to the next player
 
-### Game Loop / Is Game Finished
+### Game Loop / Is Game Finished:
 
 - [x] Have a loop of the game running while both players have their battleships alive
 - [x] If one of the players battleships are all taken out, then they lose 
 
-### Player X attacks (Rows & Columns)
+### Player X attacks (Rows & Columns):
 
 - [x] Player gets to put in a row/column for their attack / User Input
 - [x] Check if valid hit and mark an X if it’s a hit, a 0 if it is a miss.
 - [x] Update the board to represent how they performed
 
-### Game over check
+### Game over check:
 
 - [x] Perform a game over check 
 - [x] Exit loop/end program
 
-### Required Ship Amount
+### Required Ship Amount:
 
 - [x] Have at least 2 different ship sizes (Length of 3, 4, 5, etc)
 - [x] Have at least 4 ships.
 
 
 
-## How to Interact with Game
+## How to Interact with Game:
 
 - Have appropriate libraries installed (unittest, os)
 - Open file from terminal and run (python main.py) to start interacting with game.
 
-### Challenges faced
+### Challenges faced:
 
 - Not all ships are sunk if more than one ships are placed on the board.
 
