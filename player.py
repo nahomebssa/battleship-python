@@ -64,6 +64,9 @@ class Player:
 
                             # Places ships assuming either ship size is (x, 1) or (1, x)
                             for pos in range(my_ship.get_size()):
+
+                                cell_to_add = tuple((start_row, start_col + pos))
+
                                 if len(self.ships_location) != 0:
                                     
                                     #Iterates through ship cells checking if desired coordinate has already being placed
@@ -74,6 +77,7 @@ class Player:
                                             continue
 
                                     my_ship.add_cell(cell_to_add)
+                                my_ship.add_cell(cell_to_add)
                                 # Added the line below to manipulate and show the ship on the board!
                                 self.player_board.board[start_row + pos][start_col] = "O"
                             self.ships_location.append(my_ship)
@@ -83,18 +87,20 @@ class Player:
 
                             # Places ships assuming either ship size is (x, 1) or (1, x)
                             for pos in range(my_ship.get_size()):
-                                if len(self.ships_location) != 0:
 
+                                cell_to_add = tuple((start_row, start_col + pos))
+
+                                if len(self.ships_location) != 0:
                                     #Iterates through ship cells checking if desired coordinate has already being placed
                                     for ship in self.ships_location:
-                                        cell_to_add = tuple((start_row, start_col + pos))
                                         if cell_to_add in ship.get_cells():
                                             print("Please choose another starting coordinate: ")
                                             continue
                                         
                                     my_ship.add_cell(cell_to_add)
+                                my_ship.add_cell(cell_to_add)
                                 # Added the line below to manipulate and show the ship on the board!
-                                self.player_board.board[start_row + pos][start_col] = "O"
+                                self.player_board.board[start_row][start_col + pos] = "O"
                             self.ships_location.append(my_ship)
                 self.player_board.show_board()
                 break
@@ -105,7 +111,7 @@ class Player:
 
 
 
-    def make_turn(self) -> tuple[int, int]:
+    def make_turn(self):
         '''
         This method is used by this player to indicate where they want to place their attack.
         '''
