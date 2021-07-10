@@ -28,6 +28,7 @@ class Player:
 
         # Created this list to handle putting ships on the board automatically.
         available_ships = ["Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"]
+        placed_cells = set()
 
         self.player_board.show_board()
 
@@ -66,6 +67,11 @@ class Player:
                             for pos in range(my_ship.get_size()):
 
                                 cell_to_add = tuple((start_row, start_col + pos))
+                                if cell_to_add in placed_cells:
+                                    # handle overlap
+                                    pass
+                                else:
+                                    placed_cells.add(cell_to_add)
 
                                 if len(self.ships_location) != 0:
                                     
