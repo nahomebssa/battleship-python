@@ -18,7 +18,6 @@ class Player:
         self.player_board = Board()
         self.player_board.build_game_board()
 
-    
     def add_ship(self) -> None:
         '''
         Since there are 5 ships to add, this method iterates through the five options 
@@ -28,6 +27,8 @@ class Player:
 
         # Created this list to handle putting ships on the board automatically.
         available_ships = ["Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"]
+        # available_ships = ["Submarine", "Destroyer"]
+
         placed_cells = set()
 
         self.player_board.show_board()
@@ -120,19 +121,21 @@ class Player:
                 break
 
 
-
-
-
-
-
     def make_turn(self):
         '''
         This method is used by this player to indicate where they want to place their attack.
         '''
-
-        # Had to encase the input with int() because it's originally a string.
-        x_target = int(input("Please enter x coordinate to attack: "))
-        y_target = int(input("Please enter y coordinate to attack: "))
+        while True:
+            try:
+                x_target = int(input("Please enter x coordinate to attack: "))
+                y_target = int(input("Please enter y coordinate to attack: "))
+                if x_target > 9 or x_target < 0 or y_target > 9 or y_target < 0:
+                    print("Oops. Please enter an integer between 0 and 9.")
+                    continue
+                break
+            except ValueError:
+                print("Oops. Please enter a valid input.")
+                continue
 
         # Had to add extra parentheses because I got an error without them. Returns a tuple now.
         return tuple((x_target, y_target))
@@ -155,7 +158,8 @@ class Player:
                     # The attacked part of the is marked with an X.
                     self.player_board.board[target[0]][target[1]] = "X"
                     if ship.has_sunk() == True:
-                        self.ships_location.pop(ship)
+                        print(f"{self.playerName}, your {ship.get_name()} has been sunked!")
+                        self.ships_location.remove(ship)
 
         return was_attacked
 

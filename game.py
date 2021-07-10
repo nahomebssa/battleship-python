@@ -20,12 +20,13 @@ class Game:
         players = [self.player1, self.player2]
         return players[(self.round + 1) % len(players)]
 
-    def clear_screen(self):
+    def clear_screen(self, duration=2):
 
         if os.name == 'posix':
             _ = os.system('clear')
         else:
             _ = os.system('cls')
+        sleep(duration)
 
     def play(self):
         is_running = True
@@ -36,11 +37,11 @@ class Game:
             Clears the screen
             '''
             self.clear_screen()
-            sleep(0.1)
 
             '''
             # Retrieves the current player's board and alerts them that it's their turn.
             '''
+            print(len(self.get_next_player().ships_location))
             self.get_next_player().print_board()
             print(self.get_current_player().playerName + "'s turn!")
 
@@ -55,16 +56,17 @@ class Game:
             '''
             if self.get_next_player().attacked(selected_coordinates):
                 print("It was a hit!")
+                sleep(2)
+                if self.get_current_player().any_remaining_ships():
+                    winner = self.get_next_player()
+                    is_running = False
+
+                if self.get_next_player().any_remaining_ships():
+                    winner = self.get_current_player()
+                    is_running = False
             else:
                 print("It's a miss!")
-
-            if self.get_current_player().any_remaining_ships():
-                winner = self.get_next_player()
-                is_running = False
-
-            if self.get_next_player().any_remaining_ships():
-                winner = self.get_current_player()
-                is_running = False
+                sleep(2)
             '''
             Increment the round variable to be used in the get_current_player() and get_next_player() methods.
             '''
