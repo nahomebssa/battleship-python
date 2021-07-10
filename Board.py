@@ -28,7 +28,6 @@ class Board:
     todo: numbers on left side (may create complication) e.g. 0--
                                                               1--
 '''
-
 # load_game(board)
 # build_game_board()
 # show_board(board)
