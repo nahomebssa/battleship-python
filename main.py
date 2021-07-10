@@ -1,5 +1,64 @@
-class Ship: pass
+from game import Game
 
-class Board: pass
+from board import Board
 
-class Game: pass
+from player import Player
+
+​
+
+​
+
+def main():
+
+​
+
+print("Welcome to Battleship!")
+
+print()
+
+​
+
+player1 = Player(input("Player 1, please enter your name: "))
+
+player2 = Player(input("Player 2, please enter your name: "))
+
+​
+
+game = Game(player1, player2)
+
+​
+
+print("Time to place your ships!")
+
+​
+
+print(f"{player1.playerName}, place your ships!")
+
+player1.add_ship()
+
+​
+
+game.clear_screen()
+
+​
+
+print(f"{player2.playerName}, place your ships!")
+
+player2.add_ship()
+
+​
+
+winner_of_game = game.play()
+
+​
+
+print(f"The winner of this game is: {winner_of_game.player_name}!")
+
+​
+
+​
+
+if __name__ == '__main__':
+
+main()
+
