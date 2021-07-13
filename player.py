@@ -101,6 +101,7 @@ class Player:
                             if self.player_board.board[start_row][start_col + pos] == "O":
                                 print("There's a ship here! Please choose another starting coordinate.")
                                 flag = True
+                                placed_cells = set()
                                 break
 
                             cell_to_add = tuple((start_row, start_col + pos))
@@ -117,6 +118,7 @@ class Player:
                             self.player_board.board[start_row][start_col + pos] = "O"
 
                         self.ships_location.append(my_ship)
+                        placed_cells = set()
                         self.player_board.show_board()
                     else:
                         print("Oops! You're building off the board! Try again.")
