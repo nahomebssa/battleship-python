@@ -68,5 +68,6 @@ The winner of the game is the person who can take out each player's ships first.
 ### Challenges faced:
 
 - Not all ships are sunk if more than one ships are placed on the board.
+	- Update: Issue resolved! Game works properly now.
 
 
