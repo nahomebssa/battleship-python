@@ -2,13 +2,13 @@ from Ship import Ship
 from Board import Board
 
 
-class Player: 
-    '''
+class Player:
+    """
     This class defines a player who will play the game against another player. This class is able to add ships to the board.
     To ensure that ship position is hidden, we only store the ship coordinates and refer to them.
     Furthermore, we can remove a specific ship if the player wants to.
     This class will also enable us to know if a certain player has won the game.
-    '''
+    """
 
     # Added the self.player_board.build_game_board() to build the board
     # Changed board name to "player_board" instead of "board" to avoid confusion with Board class.
@@ -19,16 +19,16 @@ class Player:
         self.player_board.build_game_board()
 
     def add_ship(self) -> None:
-        '''
-        Since there are 5 ships to add, this method iterates through the five options 
-        changing their cell based on where the user wanted the starting coordinate in relation to 
+        """
+        Since there are 5 ships to add, this method iterates through the five options
+        changing their cell based on where the user wanted the starting coordinate in relation to
         the orientation.
-        '''
+        """
 
         # Created this list to handle putting ships on the board automatically.
         available_ships = ["Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"]
-        # available_ships = ["Submarine", "Destroyer"]
 
+        # Temporary set to contain the cells while building the ship.
         placed_cells = set()
 
         self.player_board.show_board()
@@ -76,13 +76,17 @@ class Player:
                         if flag:
                             continue
 
+                        # If there are no collisions, we'll take the cells from placed_cells and add them
+                        # to the ships.
                         for cell in placed_cells:
                             my_ship.add_cell(cell)
 
+                        # Loop to add the ship to the board.
                         for pos in range(my_ship.get_size()):
                             self.player_board.board[start_row + pos][start_col] = "O"
 
                         self.ships_location.append(my_ship)
+                        placed_cells = set()
                         self.player_board.show_board()
                     else:
                         print("Oops! You're building off the board! Try again.")
@@ -122,14 +126,14 @@ class Player:
 
 
     def make_turn(self):
-        '''
+        """
         This method is used by this player to indicate where they want to place their attack.
-        '''
+        """
         while True:
             try:
-                x_target = int(input("Please enter x coordinate to attack: "))
-                y_target = int(input("Please enter y coordinate to attack: "))
-                if x_target > 9 or x_target < 0 or y_target > 9 or y_target < 0:
+                row = int(input("Please enter row coordinate to attack: "))
+                col = int(input("Please enter column coordinate to attack: "))
+                if row > 9 or row < 0 or col > 9 or col < 0:
                     print("Oops. Please enter an integer between 0 and 9.")
                     continue
                 break
@@ -138,14 +142,13 @@ class Player:
                 continue
 
         # Had to add extra parentheses because I got an error without them. Returns a tuple now.
-        return tuple((x_target, y_target))
+        return tuple((row, col))
     
     def attacked(self, target) -> bool:
-
-        '''
+        """
         This checks where the spot targeted by opponent had this player's ship,
         if so, we decrement it's length (this is similar to checking if ship has sunk using Ship.has_sunk method)
-        '''
+        """
 
         # Boolean flag to keep up with whether or not a ship has been attacked.
         was_attacked = False
@@ -164,10 +167,14 @@ class Player:
         return was_attacked
 
     def any_remaining_ships(self) -> None:
-        '''
+        """
         Checks if all this player's ships have been sunk
-        '''
+        """
         return len(self.ships_location) == 0
 
     def print_board(self):
         self.player_board.show_board()
+
+    def get_ship_cells(self):
+        for ship in self.ships_location:
+            print(ship.get_cells())

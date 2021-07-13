@@ -1,6 +1,10 @@
 from game import Game
 from player import Player
 
+"""
+This is the main file that needs to be executed in order to play the game.
+"""
+
 def main():
 
     print("Welcome to Battleship!")
@@ -17,10 +21,18 @@ def main():
     print(f"{player1.playerName}, place your ships!")
     player1.add_ship()
 
+    print(f"Here's your board, {player1.playerName}!")
+    player1.print_board()
+    input("Press enter to continue: ")
+
     game.clear_screen()
 
     print(f"{player2.playerName}, place your ships!")
     player2.add_ship()
+
+    print(f"Here's your board, {player2.playerName}!")
+    player2.print_board()
+    input("Press enter to continue: ")
 
     player1.player_board.clear_board()
     player2.player_board.clear_board()
